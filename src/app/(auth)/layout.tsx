@@ -1,3 +1,6 @@
+import { faArrowRightFromBracket, faPersonCane, faRectangleList, faSliders, faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 export default function AuthLayout({
   children,
@@ -5,65 +8,50 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-    <div>
-      <div className="navbar bg-primary text-primary-content shadow-lg">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+    <div className="bg-primary p-6 h-screen flex">
+      <div className="pr-6 text-white text-lg flex flex-col justify-center gap-8">
+        <FontAwesomeIcon icon={faRectangleList} className="w-6 h-6" />
+        <FontAwesomeIcon icon={faPersonCane} className="w-6 h-6" />
+        <FontAwesomeIcon icon={faUser} className="w-6 h-6" />
+        <FontAwesomeIcon icon={faSliders} className="w-6 h-6" />
+        <FontAwesomeIcon icon={faArrowRightFromBracket} className="w-6 h-6" />
+      </div>
+      <div className="bg-white h-full w-full rounded-[50px] overflow-y-scroll p-4">
+        <div className="flex justify-between">
+          <div className="cursor-pointer flex items-center">
+            <FontAwesomeIcon icon={faPersonCane} className="w-10 h-10 text-primary" />
+            <span className="text-2xl font-bold">ElderGuard</span>
+          </div>
+          <div className="flex items-center gap-4">
+            <label className="input bg-base-200 flex items-center gap-2 ">
+              <input type="text" className="grow" placeholder="Pesquisar" />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor">
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                className="h-4 w-4 opacity-70">
                 <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h7" />
+                  fillRule="evenodd"
+                  d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                  clipRule="evenodd" />
               </svg>
-            </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-              <li><a href="/formularios">Formulários</a></li>
-            </ul>
-          </div>
-        </div>
-        <div className="navbar-center">
-          <a className="text-xl">ElderGuard</a>
-        </div>
-        <div className="navbar-end">
-        <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            </label>
+            <div className="border p-1 rounded-2xl flex gap-2 items-center text-sm text-gray-500 ">
+              <div className="avatar">
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                </div>
               </div>
+              <span>Jane Doe</span>
             </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-              <li>
-                <a className="justify-between">
-                  Profile
-                </a>
-              </li>
-              <li><a>Settings</a></li>
-              <li><a>Logout</a></li>
-            </ul>
           </div>
+        </div>
+        <div className="rounded-[50px] mt-12 overflow-hidden">
+          {children}
         </div>
       </div>
-      {children}
     </div>
-    <footer className="footer footer-center bg-primary text-base-content p-4 absolute bottom-0">
-    <aside>
-      <p>Copyright © {new Date().getFullYear()} - All right reserved by </p>
-    </aside>
-  </footer>
-  </>
   );
 }

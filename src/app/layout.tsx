@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="mytheme">
       <body
-        className="bg-secondary relative"
+        className="bg-primary relative"
       >
         {children}
       </body>

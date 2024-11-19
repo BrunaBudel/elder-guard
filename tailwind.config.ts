@@ -22,9 +22,9 @@ export default {
       {
         mytheme: {
           
-          "primary": "#57CC99",
+          "primary": "#749D1C",
                     
-          "primary-content": "#030f08",
+          "primary-content": "#fff",
                     
           "secondary": "#AAE5CC",
                     

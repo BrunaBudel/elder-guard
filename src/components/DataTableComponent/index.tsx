@@ -8,7 +8,7 @@ interface IDataTableProps {
 const customStyles = {
 	headCells: {
 		style: {
-			backgroundColor: '#48B89F',
+			backgroundColor: '#749D1C',
       color: '#fff',
 		},
 	},

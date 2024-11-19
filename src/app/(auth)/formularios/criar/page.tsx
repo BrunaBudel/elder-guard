@@ -10,7 +10,7 @@ import { useFieldArray, useForm, useWatch } from "react-hook-form";
 
 
 export default function CriarFormulario() {
-  const { control, register, handleSubmit } = useForm<IForm>({
+  const { control, register, handleSubmit, reset } = useForm<IForm>({
     defaultValues: {
       nome: "",
       descricao: "",
@@ -30,12 +30,15 @@ export default function CriarFormulario() {
 
   const handleCreateForm = (data: IForm) => {
     console.log(data);
+    reset();
   }
 
   return (
-    <div className="min-h-screen p-8 px-24 text-black">
-      <fieldset className="border-2 border-white bg-white p-4 mb-12 rounded-md">
-        <legend className="text-lg">Formulário</legend>
+    <div className=" p-8 px-24 text-black">
+      <div className="bg-primary text-white flex items-center justify-center rounded-t-[50px] p-8">
+        <p className="text-2xl font-bold mb-2">Criar Formulário</p>
+      </div>
+      <div className="border-2 border-white bg-gray-200 p-8 mb-12 rounded-b-[50px]">
         <form onSubmit={handleSubmit(handleCreateForm)}>
           <FormGroup
             labelText="Nome"
@@ -65,7 +68,7 @@ export default function CriarFormulario() {
           {fields.map((field, index) => (
             <fieldset
               key={field.id}
-              className="border-2 p-4 mb-4 rounded-md mt-4"
+              className="border-2 border-white p-4 mb-4 rounded-md mt-4"
             >
               <legend className="px-2 text-sm">Questão {index + 1}</legend>
               <FormGroup
@@ -118,7 +121,7 @@ export default function CriarFormulario() {
           )
           }
         </form>
-      </fieldset>
+      </div>
     </div>
   );
 }
