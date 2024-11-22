@@ -3,34 +3,53 @@
 import FormGroup from "@/components/FormGroup";
 import SelectFormGroup from "@/components/SelectFormGroup";
 import TextAreaFormGroup from "@/components/TextAreaFormGroup";
+import { useLoader } from "@/context/LoaderContext";
+import { api } from "@/lib/axios";
 import { questionTypes } from "@/mocks/questionTypes";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/navigation";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
+import { toast } from "react-toastify";
 
 
 export default function CriarFormulario() {
+  const router = useRouter();
+  const {setIsLoading} = useLoader();
   const { control, register, handleSubmit, reset } = useForm<IForm>({
     defaultValues: {
       nome: "",
       descricao: "",
-      questoes: [],
+      questao: [],
     },
   });
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "questoes",
+    name: "questao",
   });
 
   const tipos = useWatch({
     control,
-    name: "questoes", 
+    name: "questao", 
   });
 
   const handleCreateForm = (data: IForm) => {
-    console.log(data);
-    reset();
+    setIsLoading(true);
+  data = {
+    ...data,
+    ordem: 1,
+    tipo: "teste",
+  }
+    api.post("/formularios/criar", data).then((response) => {
+      toast.success(response.data.mensagem);
+      reset();
+      router.push("/formularios");
+    }).catch((error) => {
+      toast.error(error.response.data.error);
+    }).finally(() => {
+      setIsLoading(false);
+    })
   }
 
   return (
@@ -75,18 +94,18 @@ export default function CriarFormulario() {
                 labelText="Título"
                 isRequired
                 inputClass="input-bordered input-sm"
-                register={register(`questoes.${index}.titulo`)}
+                register={register(`questao.${index}.titulo`)}
               />
               <FormGroup
                 labelText="Descrição"
                 inputClass="h-24 input-bordered input-sm"
-                register={register(`questoes.${index}.descricao`)}
+                register={register(`questao.${index}.descricao`)}
               />
               <SelectFormGroup
                 labelText="Tipo"
                 isRequired
                 inputClass="input-bordered input-sm"
-                register={register(`questoes.${index}.tipo`)}
+                register={register(`questao.${index}.tipo`)}
                 options={questionTypes}
                 placeholder="Selecione"
               />
@@ -129,7 +148,7 @@ export default function CriarFormulario() {
 function OptionsFieldArray({ control, questionIndex, register }: any) {
   const { fields: options, append, remove } = useFieldArray({
     control,
-    name: `questoes.${questionIndex}.opcoes`,
+    name: `questao.${questionIndex}.opcoes`,
   });
 
   return (
@@ -147,14 +166,14 @@ function OptionsFieldArray({ control, questionIndex, register }: any) {
             labelText="Descrição"
             inputClass="input-bordered input-sm"
             register={register(
-              `questoes.${questionIndex}.opcoes.${optionIndex}.descricao`
+              `questao.${questionIndex}.opcoes.${optionIndex}.descricao`
             )}
           />
           <FormGroup
             labelText="Pontuação"
             inputClass="input-bordered input-sm"
             register={register(
-              `questoes.${questionIndex}.opcoes.${optionIndex}.pontuacao`
+              `questao.${questionIndex}.opcoes.${optionIndex}.pontuacao`
             )}
             type="number"
           />

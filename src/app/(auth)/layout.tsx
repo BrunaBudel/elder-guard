@@ -1,3 +1,6 @@
+'use client'
+
+import { useLoader } from "@/context/LoaderContext";
 import { faArrowRightFromBracket, faPersonCane, faRectangleList, faSliders, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -7,8 +10,16 @@ export default function AuthLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { isLoading } = useLoader();
   return (
     <div className="bg-primary p-6 h-screen flex">
+      {
+        isLoading && (
+          <div className="fixed top-0 left-0 z-50 w-full h-full bg-white bg-opacity-70 flex items-center justify-center">
+            <span className="loading loading-spinner text-primary loading-lg"></span>
+          </div>
+        )
+      }
       <div className="pr-6 text-white text-lg flex flex-col justify-center gap-8">
         <FontAwesomeIcon icon={faRectangleList} className="w-6 h-6" />
         <FontAwesomeIcon icon={faPersonCane} className="w-6 h-6" />

@@ -1,5 +1,7 @@
 interface IForm {
   nome: string;
   descricao: string;
-  questoes: IQuestion[];
+  tipo: string;
+  ordem: number;
+  questao: IQuestion[];
 }

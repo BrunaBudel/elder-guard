@@ -1,10 +1,9 @@
-import type { Metadata } from "next";
+'use client'
 import "./globals.css";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import { LoaderProvider, useLoader } from "@/context/LoaderContext";
 
-
-export const metadata: Metadata = {
-  title: "ElderGuard",
-};
 
 export default function RootLayout({
   children,
@@ -16,7 +15,10 @@ export default function RootLayout({
       <body
         className="bg-primary relative"
       >
-        {children}
+        <LoaderProvider>
+          {children}
+        </LoaderProvider>
+        <ToastContainer />
       </body>
     </html>
   );

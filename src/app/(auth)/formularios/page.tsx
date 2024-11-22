@@ -1,8 +1,10 @@
 'use client'
 
 import DataTableComponent from "@/components/DataTableComponent";
+import { api } from "@/lib/axios";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect } from "react";
 
 const columns = [
 	{
@@ -46,7 +48,13 @@ const data = [
 	},
 ]
 
+
 export default function Formularios() {
+
+useEffect(() => {
+  api.get('/formularios')
+}, []);
+
   return (
     <div className="bg-gray-200 p-8 ">
       <div className='mb-4 flex justify-between items-center'>
