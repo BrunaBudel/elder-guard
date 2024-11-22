@@ -1,10 +1,12 @@
 'use client'
 
 import DataTableComponent from "@/components/DataTableComponent";
+import { useLoader } from "@/context/LoaderContext";
 import { api } from "@/lib/axios";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const columns = [
 	{
@@ -16,6 +18,10 @@ const columns = [
 		name: 'Descrição',
 		selector: (row: { descricao: any; }) => row.descricao,
 	},
+  {
+    name: 'Tipo',
+    selector: (row: { tipo: any; }) => row.tipo,
+  },
   {
 		name: '',
     width: '150px',
@@ -35,24 +41,21 @@ const columns = [
 	},
 ];
 
-const data = [
-  {
-		id: 1,
-		nome: 'Formulário 1',
-		descricao: 'Descrição do Formulário 1',
-	},
-	{
-		id: 2,
-		nome: 'Formulário 2',
-		descricao: 'Descrição do Formulário 2',
-	},
-]
-
 
 export default function Formularios() {
+  const {setIsLoading} = useLoader();
+
+  const [ forms, setForms ] = useState<IForm[]>();
 
 useEffect(() => {
-  api.get('/formularios')
+  setIsLoading(true);
+  api.get('/formularios').then((response) => {
+    setForms(response.data);
+  }).catch((error) => {
+    toast.error(error.response.data.error);
+  }).finally(() => {
+    setIsLoading(false);
+  })
 }, []);
 
   return (
@@ -68,7 +71,7 @@ useEffect(() => {
       </div>
       <DataTableComponent
       columns={columns}
-      data={data}
+      data={forms}
       />
     </div>
   );

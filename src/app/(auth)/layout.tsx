@@ -3,6 +3,7 @@
 import { useLoader } from "@/context/LoaderContext";
 import { faArrowRightFromBracket, faPersonCane, faRectangleList, faSliders, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { usePathname, useRouter } from "next/navigation";
 
 
 export default function AuthLayout({
@@ -11,6 +12,8 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   const { isLoading } = useLoader();
+  const pathname = usePathname()
+  const router = useRouter();
   return (
     <div className="bg-primary p-6 h-screen flex">
       {
@@ -21,11 +24,21 @@ export default function AuthLayout({
         )
       }
       <div className="pr-6 text-white text-lg flex flex-col justify-center gap-8">
-        <FontAwesomeIcon icon={faRectangleList} className="w-6 h-6" />
-        <FontAwesomeIcon icon={faPersonCane} className="w-6 h-6" />
-        <FontAwesomeIcon icon={faUser} className="w-6 h-6" />
-        <FontAwesomeIcon icon={faSliders} className="w-6 h-6" />
-        <FontAwesomeIcon icon={faArrowRightFromBracket} className="w-6 h-6" />
+        <div className={`p-2 rounded hover:bg-white group flex items-center justify-center ${pathname.startsWith('/formularios/') && 'bg-white text-primary'}`} onClick={() => router.push('/formularios')}>
+          <FontAwesomeIcon icon={faRectangleList} className="w-6 h-6 group-hover:text-primary" />
+        </div>
+        <div className={`p-2 rounded hover:bg-white group flex items-center justify-center `}>
+          <FontAwesomeIcon icon={faPersonCane} className="w-6 h-6 group-hover:text-primary" />
+        </div>
+        <div className={`p-2 rounded hover:bg-white group flex items-center justify-center `}>
+          <FontAwesomeIcon icon={faUser} className="w-6 h-6 group-hover:text-primary" />
+        </div>
+        <div className={`p-2 rounded hover:bg-white group flex items-center justify-center `}>
+          <FontAwesomeIcon icon={faSliders} className="w-6 h-6 group-hover:text-primary" />
+        </div>
+        <div className={`p-2 rounded hover:bg-white group flex items-center justify-center `}>
+          <FontAwesomeIcon icon={faArrowRightFromBracket} className="w-6 h-6 group-hover:text-primary" />
+        </div>
       </div>
       <div className="bg-white h-full w-full rounded-[50px] overflow-y-scroll p-4">
         <div className="flex justify-between">

@@ -23,7 +23,7 @@ const DataTableComponent: React.FC<IDataTableProps> = ({
 			columns={columns}
 			data={data}
       customStyles={customStyles}
-		  />
+		/>
   )
 }
 
