@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 export default function CriarFormulario() {
   const router = useRouter();
   const {setIsLoading} = useLoader();
-  const { control, register, handleSubmit, reset } = useForm<IForm>({
+  const { control, register, handleSubmit, reset, formState: {errors} } = useForm<IForm>({
     defaultValues: {
       nome: "",
       descricao: "",
@@ -39,7 +39,6 @@ export default function CriarFormulario() {
   data = {
     ...data,
     ordem: 1,
-    tipo: "teste",
   }
     api.post("/formularios/criar", data).then((response) => {
       toast.success(response.data.mensagem);
@@ -64,11 +63,21 @@ export default function CriarFormulario() {
             isRequired
             inputClass="input-bordered"
             register={register("nome")}
+            error={errors.nome?.message}
+          />
+          <FormGroup
+            labelText="Tipo"
+            isRequired
+            inputClass="input-bordered"
+            register={register("tipo")}
+            error={errors.tipo?.message}
           />
           <TextAreaFormGroup
             labelText="Descrição"
             inputClass="h-24 input-bordered"
             register={register("descricao")}
+            isRequired
+            error={errors.descricao?.message}
           />
           <button
             className="btn-sm btn btn-accent mt-4 flex items-center gap-2"
@@ -95,11 +104,14 @@ export default function CriarFormulario() {
                 isRequired
                 inputClass="input-bordered input-sm"
                 register={register(`questao.${index}.titulo`)}
+                error={errors.questao?.[index]?.titulo?.message}
               />
               <FormGroup
                 labelText="Descrição"
                 inputClass="h-24 input-bordered input-sm"
+                isRequired
                 register={register(`questao.${index}.descricao`)}
+                error={errors.questao?.[index]?.descricao?.message}
               />
               <SelectFormGroup
                 labelText="Tipo"
@@ -108,6 +120,7 @@ export default function CriarFormulario() {
                 register={register(`questao.${index}.tipo`)}
                 options={questionTypes}
                 placeholder="Selecione"
+                error={errors.questao?.[index]?.tipo?.message}
               />
               {tipos[index]?.tipo === "opcoes" && (
                 <div className="mt-4">
@@ -116,6 +129,7 @@ export default function CriarFormulario() {
                     control={control}
                     questionIndex={index}
                     register={register}
+                    error={errors.questao}
                   />
                 </div>
               )}
@@ -145,7 +159,7 @@ export default function CriarFormulario() {
   );
 }
 
-function OptionsFieldArray({ control, questionIndex, register }: any) {
+function OptionsFieldArray({ control, questionIndex, register, error }: any) {
   const { fields: options, append, remove } = useFieldArray({
     control,
     name: `questao.${questionIndex}.opcoes`,
@@ -168,6 +182,7 @@ function OptionsFieldArray({ control, questionIndex, register }: any) {
             register={register(
               `questao.${questionIndex}.opcoes.${optionIndex}.descricao`
             )}
+            error={error?.[questionIndex]?.opcoes?.[optionIndex]?.descricao?.message}
           />
           <FormGroup
             labelText="Pontuação"
@@ -176,6 +191,7 @@ function OptionsFieldArray({ control, questionIndex, register }: any) {
               `questao.${questionIndex}.opcoes.${optionIndex}.pontuacao`
             )}
             type="number"
+            error={error?.[questionIndex]?.opcoes?.[optionIndex]?.pontuacao?.message}
           />
           <button
             type="button"
