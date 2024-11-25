@@ -13,9 +13,9 @@ export interface ISelectFormGroupProps {
   isDisabled?: boolean;
   tooltipText?: string;
   tooltipContent?: string | JSX.Element;
-  register: ReturnType<UseFormRegister<any>>;
+  register?: ReturnType<UseFormRegister<any>>;
   options: any[];
-  placeholder: string;
+  placeholder?: string;
 }
 
 const SelectFormGroup: React.FC<ISelectFormGroupProps> = ({ 

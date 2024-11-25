@@ -26,8 +26,8 @@ const Select: React.FC<InputProps> = ({
     >
       <option disabled value=''>{placeholder}</option>
       {options.map((option, key) => (
-        <option value={option.value} key={key}>
-          {option.name ?? option}
+        <option value={option.value || `${option.descricao}&${option.valor}`} key={key}>
+          {option.name ?? option.descricao}
         </option>
       ))
       }

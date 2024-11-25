@@ -106,7 +106,7 @@ export default function CriarFormulario() {
                 register={register(`questao.${index}.titulo`)}
                 error={errors.questao?.[index]?.titulo?.message}
               />
-              <FormGroup
+              <TextAreaFormGroup
                 labelText="Descrição"
                 inputClass="h-24 input-bordered input-sm"
                 isRequired

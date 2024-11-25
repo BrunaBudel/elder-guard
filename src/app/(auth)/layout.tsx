@@ -24,7 +24,7 @@ export default function AuthLayout({
         )
       }
       <div className="pr-6 text-white text-lg flex flex-col justify-center gap-8">
-        <div className={`p-2 rounded hover:bg-white group flex items-center justify-center ${pathname.startsWith('/formularios/') && 'bg-white text-primary'}`} onClick={() => router.push('/formularios')}>
+        <div className={`p-2 rounded hover:bg-white group flex items-center justify-center ${pathname.startsWith('/formularios') && 'bg-white text-primary'}`} onClick={() => router.push('/formularios')}>
           <FontAwesomeIcon icon={faRectangleList} className="w-6 h-6 group-hover:text-primary" />
         </div>
         <div className={`p-2 rounded hover:bg-white group flex items-center justify-center `}>

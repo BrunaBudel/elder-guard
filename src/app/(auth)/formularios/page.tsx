@@ -27,9 +27,9 @@ const columns = [
     width: '150px',
     cell: (row: { id: any; }) => (
       <div className='flex justify-end gap-2'>
-        <button className='btn btn-sm btn-primary'>
+        <a className='btn btn-sm btn-primary' href={`formularios/${row.id}`}>
           Iniciar
-        </button>
+        </a>
         <button className='btn btn-sm btn-secondary'>
           Editar
         </button>
